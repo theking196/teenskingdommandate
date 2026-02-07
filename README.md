@@ -43,13 +43,6 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY
    - `media` (photos/videos)
    - `avatars` (profile images)
 
-### ✅ Create the First Admin User
-1. Go to **Authentication → Users** in Supabase.
-2. Create a new user with email + password.
-3. In the **Table Editor → profiles**, find the user row and set `role` to `admin`.
-4. Log in at `/login`, then visit `/admin` to manage all content.
-5. Use the **Branding & Logo** section to upload a logo and customize site text.
-
 ## 📦 Deployment (GitHub → Vercel)
 1. Create a new GitHub repo and push this code.
 2. Sign in to Vercel and import the repository.
@@ -72,7 +65,6 @@ src/
     login/
     media/
   components/
-    admin/
     forms/
     FeatureCard.tsx
     Footer.tsx
@@ -91,9 +83,9 @@ supabase/
 ```
 
 ## 🧠 Notes for Ministry Leaders
-- Update announcements/events/media by inserting new rows in Supabase tables or the admin dashboard.
+- Update announcements/events/media by inserting new rows in Supabase tables.
 - Upload photos/videos to Supabase Storage and paste the public URL in the `media` table.
-- Admin access is controlled by the `role` column in `profiles`.
+- If you want admin-only functionality, add a `role` column in `profiles` and extend `/admin`.
 
 ## 📸 WhatsApp Links
 Replace the placeholder WhatsApp links in:

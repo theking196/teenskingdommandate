@@ -1,16 +1,8 @@
 import Image from 'next/image';
 import SectionHeading from '@/components/SectionHeading';
-import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { departments as fallbackDepartments, workers as fallbackWorkers } from '@/lib/placeholder-data';
+import { departments, workers } from '@/lib/placeholder-data';
 
-export default async function DepartmentsPage() {
-  const supabase = createSupabaseServerClient();
-  const { data: departmentsData } = await supabase.from('departments').select('*').order('name');
-  const { data: workersData } = await supabase.from('workers').select('*').order('name');
-
-  const departments = departmentsData?.length ? departmentsData : fallbackDepartments;
-  const workers = workersData?.length ? workersData : fallbackWorkers;
-
+export default function DepartmentsPage() {
   return (
     <div>
       <section>
@@ -18,7 +10,7 @@ export default async function DepartmentsPage() {
           <SectionHeading
             eyebrow="Departments & Workers"
             title="Serve alongside passionate teen leaders"
-            description="Admins can add or edit departments and workers through the admin dashboard."
+            description="Admins can add or edit departments and workers through Supabase or a simple form."
           />
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {departments.map((department) => (
@@ -42,7 +34,7 @@ export default async function DepartmentsPage() {
             {workers.map((worker) => (
               <div key={worker.name} className="gradient-card overflow-hidden">
                 <div className="relative h-52">
-                  <Image src={worker.image ?? worker.photo_url} alt={worker.name} fill className="object-cover" />
+                  <Image src={worker.image} alt={worker.name} fill className="object-cover" />
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-semibold">{worker.name}</h3>

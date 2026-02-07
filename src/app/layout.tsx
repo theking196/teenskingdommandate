@@ -4,7 +4,6 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
-import { getSiteSettings } from '@/lib/site-settings';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space', display: 'swap' });
@@ -30,20 +29,18 @@ export const metadata: Metadata = {
   }
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
-  const settings = await getSiteSettings();
-
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <body className="min-h-screen bg-slate-950 text-white">
-        <Navbar settings={settings} />
+        <Navbar />
         <main>{children}</main>
-        <Footer settings={settings} />
-        <WhatsAppFloat settings={settings} />
+        <Footer />
+        <WhatsAppFloat />
       </body>
     </html>
   );

@@ -1,6 +1,5 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import { SiteSettings, defaultSettings } from '@/lib/site-settings';
+import { weeklyPrograms } from '@/lib/placeholder-data';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -12,25 +11,15 @@ const navLinks = [
   { href: '/join', label: 'Join Us' }
 ];
 
-interface NavbarProps {
-  settings?: SiteSettings;
-}
-
-export default function Navbar({ settings = defaultSettings }: NavbarProps) {
+export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur">
       <div className="container-shell flex items-center justify-between py-4">
         <Link href="/" className="flex items-center gap-3">
-          {settings.logoUrl ? (
-            <div className="relative h-10 w-10 overflow-hidden rounded-2xl bg-white/10">
-              <Image src={settings.logoUrl} alt={`${settings.ministryName} logo`} fill className="object-contain" />
-            </div>
-          ) : (
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-500 text-lg font-bold">TKM</div>
-          )}
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-500 text-lg font-bold">TKM</div>
           <div>
-            <p className="text-lg font-bold text-white">{settings.ministryName}</p>
-            <p className="text-xs text-white/60">{settings.tagline}</p>
+            <p className="text-lg font-bold text-white">Teens Kingdom Ministry</p>
+            <p className="text-xs text-white/60">Lagos, Nigeria</p>
           </div>
         </Link>
         <nav className="hidden items-center gap-6 lg:flex">
@@ -42,7 +31,7 @@ export default function Navbar({ settings = defaultSettings }: NavbarProps) {
         </nav>
         <div className="hidden items-center gap-3 lg:flex">
           <Link
-            href={settings.whatsappLink}
+            href={weeklyPrograms[0].link}
             className="rounded-full bg-energy-500 px-4 py-2 text-sm font-semibold text-slate-900 shadow-glow transition hover:bg-energy-400"
           >
             Join WhatsApp
@@ -56,7 +45,7 @@ export default function Navbar({ settings = defaultSettings }: NavbarProps) {
         </div>
         <div className="lg:hidden">
           <Link
-            href={settings.whatsappLink}
+            href={weeklyPrograms[0].link}
             className="rounded-full bg-energy-500 px-4 py-2 text-xs font-semibold text-slate-900"
           >
             WhatsApp

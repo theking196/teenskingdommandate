@@ -1,14 +1,9 @@
 import Image from 'next/image';
 import SectionHeading from '@/components/SectionHeading';
 import RsvpForm from '@/components/forms/RsvpForm';
-import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { events as fallbackEvents, mediaHighlights } from '@/lib/placeholder-data';
+import { events, mediaHighlights } from '@/lib/placeholder-data';
 
-export default async function EventsPage() {
-  const supabase = createSupabaseServerClient();
-  const { data: eventsData } = await supabase.from('events').select('*').order('event_date', { ascending: true });
-
-  const events = eventsData?.length ? eventsData : fallbackEvents;
+export default function EventsPage() {
   const upcoming = events.filter((event) => event.status === 'Upcoming');
   const past = events.filter((event) => event.status === 'Past');
 
@@ -28,7 +23,7 @@ export default async function EventsPage() {
                   <h3 className="text-xl font-semibold">{event.name}</h3>
                   <p className="mt-2 text-sm text-white/70">{event.description}</p>
                   <div className="mt-4 text-sm text-white/60">
-                    <p>{event.event_date ?? event.date}</p>
+                    <p>{event.date}</p>
                     <p>{event.location}</p>
                   </div>
                 </div>

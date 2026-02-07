@@ -2,45 +2,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import FeatureCard from '@/components/FeatureCard';
 import SectionHeading from '@/components/SectionHeading';
-import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { getSiteSettings } from '@/lib/site-settings';
-import { announcements as fallbackAnnouncements, events as fallbackEvents, mediaHighlights, weeklyPrograms } from '@/lib/placeholder-data';
+import { announcements, events, mediaHighlights, weeklyPrograms } from '@/lib/placeholder-data';
 
-export default async function HomePage() {
-  const supabase = createSupabaseServerClient();
-  const settings = await getSiteSettings();
-  const { data: posts } = await supabase.from('posts').select('*').order('published_at', { ascending: false }).limit(3);
-  const { data: events } = await supabase.from('events').select('*').order('event_date', { ascending: true }).limit(3);
-  const { data: media } = await supabase.from('media').select('*').order('created_at', { ascending: false }).limit(6);
-
-  const announcements = posts?.length
-    ? posts.map((post) => ({
-        title: post.title,
-        category: post.category,
-        date: new Date(post.published_at ?? new Date()).toLocaleDateString('en-US', {
-          month: 'short',
-          day: 'numeric',
-          year: 'numeric'
-        }),
-        excerpt: post.content?.slice(0, 120) ?? ''
-      }))
-    : fallbackAnnouncements;
-
-  const eventItems = events?.length ? events : fallbackEvents;
-
-  const mediaPhotos = (media ?? [])
-    .filter((item) => item.media_type === 'photo')
-    .map((item) => item.url)
-    .filter(Boolean) as string[];
-
+export default function HomePage() {
   return (
     <div>
       <section className="relative overflow-hidden">
         <div className="container-shell grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
-            <span className="glass-pill">Lagos • {settings.ministryName}</span>
+            <span className="glass-pill">Lagos • Teens Kingdom Ministry</span>
             <h1 className="mt-6 text-4xl font-bold leading-tight md:text-5xl">
-              Join {settings.ministryName}: {settings.tagline} – Lagos
+              Join TKM: Called to Ministry, Empowered by the Gospel – Teens Kingdom Ministry, Lagos
             </h1>
             <p className="mt-4 text-lg text-white/70">
               A vibrant teen community where you grow in Jesus, serve in departments, and connect through events,
@@ -121,13 +93,13 @@ export default async function HomePage() {
             description="RSVPs are stored in Supabase so we can follow up with you."
           />
           <div className="grid gap-6 lg:grid-cols-3">
-            {eventItems.map((eventItem) => (
+            {events.map((eventItem) => (
               <div key={eventItem.name} className="gradient-card p-6">
                 <p className="text-xs uppercase tracking-widest text-white/50">{eventItem.status}</p>
                 <h3 className="mt-3 text-xl font-semibold">{eventItem.name}</h3>
                 <p className="mt-2 text-sm text-white/70">{eventItem.description}</p>
                 <div className="mt-4 text-sm text-white/60">
-                  <p>{eventItem.event_date ?? eventItem.date}</p>
+                  <p>{eventItem.date}</p>
                   <p>{eventItem.location}</p>
                 </div>
               </div>
@@ -145,7 +117,7 @@ export default async function HomePage() {
               description="Upload your media to Supabase storage to keep the gallery fresh."
             />
             <div className="grid gap-4 sm:grid-cols-2">
-              {(mediaPhotos.length ? mediaPhotos : mediaHighlights.photos).map((photo) => (
+              {mediaHighlights.photos.map((photo) => (
                 <div key={photo} className="relative h-44 overflow-hidden rounded-2xl">
                   <Image src={photo} alt="TKM moments" fill className="object-cover" />
                 </div>

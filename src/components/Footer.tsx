@@ -1,17 +1,12 @@
 import Link from 'next/link';
 import { weeklyPrograms } from '@/lib/placeholder-data';
-import { SiteSettings, defaultSettings } from '@/lib/site-settings';
 
-interface FooterProps {
-  settings?: SiteSettings;
-}
-
-export default function Footer({ settings = defaultSettings }: FooterProps) {
+export default function Footer() {
   return (
     <footer className="border-t border-white/10 bg-slate-950">
       <div className="container-shell grid gap-10 py-16 lg:grid-cols-3">
         <div>
-          <h3 className="text-lg font-bold">{settings.ministryName}</h3>
+          <h3 className="text-lg font-bold">Teens Kingdom Ministry</h3>
           <p className="mt-4 text-sm text-white/70">
             Calling teenagers to ministry, teaching the gospel, and building community through events, media, and
             weekly WhatsApp programs.
@@ -42,7 +37,7 @@ export default function Footer({ settings = defaultSettings }: FooterProps) {
                 <span>
                   {program.name} · {program.time}
                 </span>
-                <Link href={settings.whatsappLink} className="text-energy-400 hover:text-energy-300">
+                <Link href={program.link} className="text-energy-400 hover:text-energy-300">
                   Join
                 </Link>
               </li>
