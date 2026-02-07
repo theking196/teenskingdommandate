@@ -8,7 +8,8 @@ A modern, mobile-first website for **Teens Kingdom Ministry** in Lagos, Nigeria.
 - Supabase PostgreSQL tables for events, posts, departments, workers, rankings, media, RSVPs, and join requests.
 - Supabase Storage for photos and videos.
 - Member dashboard with ranking progress and profile editing.
-- Admin-ready structure (Supabase dashboard or `/admin` page).
+- Admin dashboard to manage all content, join requests, and RSVPs.
+- Branding tools to upload a logo and customize ministry name, tagline, and WhatsApp link.
 
 ## ✅ Tech Stack (2026-ready)
 - **Next.js 14+ (App Router)** + TypeScript
